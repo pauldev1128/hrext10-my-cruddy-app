@@ -11,10 +11,52 @@ inputs (border swag)
 https://getbootstrap.com/docs/4.3/getting-started/introduction/
 */
 
+/*
 th {
   text-decoration: underline;
 }
 
 label {
   text-decoration: underline;
+}
+*/
+
+/*Style Sheet*/
+
+.title {
+  display: flex;
+  justify-content: center;
+}
+
+label {
+  margin-right: 15px;
+  font-size: 20px;
+}
+
+.event-list-form {
+  display: flex;
+  justify-content: center;
+}
+
+.js-item-index-element {
+  margin: 25px;
+}
+
+.event-item {
+  padding-bottom: 15px;
+  font-size: 20px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+.event-item__checked {
+  text-decoration: line-through;
+  color: red;
+  font-style: italic;
 }

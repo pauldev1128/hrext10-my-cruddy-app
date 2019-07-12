@@ -7,6 +7,7 @@
 */
 
 //localStorage functions
+/*
 var createItem = function(key, value) {
   return window.localStorage.setItem(key, value);
 }
@@ -107,4 +108,94 @@ $(document).ready(function() {
       showDatabaseContents();
     }
   })
+})
+*/
+
+// My Script JS
+
+const TODO = [
+  {name: "Eat Breakfast", done: false},
+  {name: "Workout", done: false},
+  {name: "Practice Recursion", done: true},
+  {name: "Do Laundry", done: false}
+];
+
+
+$(document).ready(function(){
+  function generateItemElement(item, itemIndex, template) { 
+    return `<li class="js-item-index-element" event-index="${itemIndex}">
+      <span class="event-item ${item.done ? "event-item__checked" : ''}">${item.name}</span>
+      <div class="event-item-controls">
+        <button class="event-item-toggle js-item-toggle">
+            <span class="button-label">check</span>
+        </button>
+        <button class="item-delete">
+            <span class="button-label">delete</span>
+        </button>
+      </div>
+    </li>`;
+  }
+
+  function generateToDoListStr(toDoList) {
+      const items = toDoList.map((item, index) => generateItemElement(item, index));
+      return items.join("");
+  }
+
+  function getList() {
+    const toDoListStr = generateToDoListStr(TODO);
+    $('.my-schedule').html(toDoListStr);
+  }
+
+  function addItemToList(itemName) {
+    TODO.push({name: itemName, done: false});
+  }
+
+  function newEvent() {
+    $('.event-list-form').submit(function(event) {
+      event.preventDefault();
+      const newName = $('.list-entry').val();
+      $('.list-entry').val('');
+      addItemToList(newName);
+     getList();
+    });
+  }
+
+  function getItemIndexFromElement(item) {
+    const itemIndexString = $(item)
+      .closest('.js-item-index-element').attr('event-index');
+    return parseInt(itemIndexString, 10);
+  }
+
+  function eventToggle(itemIndex) {
+    TODO[itemIndex].done = !TODO[itemIndex].done;
+  }
+
+  function itemChecked() {
+    $('.my-schedule').on('click', `.js-item-toggle`, event => {
+      const itemIndex = getItemIndexFromElement(event.currentTarget);
+      eventToggle(itemIndex);
+      getList();
+    });
+  }
+
+  function deleteListItem(itemIndex) {
+    TODO.splice(itemIndex, 1); 
+  }
+
+  function itemDelete() {
+    $('.my-schedule').on('click', '.item-delete', event => { 
+      const itemIndex = getItemIndexFromElement(event.currentTarget);
+      deleteListItem(itemIndex);
+      getList();
+    });
+  }
+
+  function list() {
+    getList();
+    newEvent();
+    itemChecked();
+    itemDelete();
+  }
+
+  $(list);
 })
