@@ -60,3 +60,7 @@ button:hover {
   color: red;
   font-style: italic;
 }
+
+.my-schedule {
+  border: 1px solid black;
+}
